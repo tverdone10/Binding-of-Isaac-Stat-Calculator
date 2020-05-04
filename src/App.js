@@ -1,17 +1,15 @@
 import React from 'react';
 import isaac from './images/isaachead.png';
 import './App.css';
-import TestHome from './components/testhome'
+import CharacterScreen from './components/CharacterScreen'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={isaac} className="App-logo" alt="logo" />
-        <p>
-          <TestHome />
-        </p>
-      </header>
+
+      <div className="stats" >
+      <CharacterScreen />
+      </div>
     </div>
   );
 }

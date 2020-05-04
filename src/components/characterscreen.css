@@ -1,0 +1,41 @@
+h1 {
+  margin: 0;
+}
+
+h3 {
+  margin: 0;
+}
+
+.statContainer {
+
+  margin: 0 auto;
+
+}
+
+.selection-bar {
+  width: 100;
+  flex-direction: row;
+
+}
+
+.selector {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-bottom: 0;
+}
+
+.choose {
+  margin-top: 10px;
+  height: 10vmin;
+  transition: height 1s;
+  z-index: 99;
+  justify-content: space-evenly;
+  border-bottom: 0;
+}
+
+.choose:hover {
+  height: 12vmin;
+  border-bottom: 0;
+}
