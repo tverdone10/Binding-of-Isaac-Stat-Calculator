@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const characterSchema = new Schema({
+const itemSchema = new Schema({
     name: { type: String, required: true, unique: true},
     redHealth: {type: Number, required: true},
     blueHealth: {type: Number, required: true},
@@ -15,10 +15,4 @@ const characterSchema = new Schema({
     speed: {type: Number, required: true},
     luck: {type: Number, required: true}
 
-}, {
-    timestamps: true,
 })
-
-const Character = mongoose.model('Character', characterSchema)
-
-module.exports = Character
