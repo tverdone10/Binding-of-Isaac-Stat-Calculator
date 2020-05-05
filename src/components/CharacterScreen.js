@@ -10,6 +10,14 @@ import Eve from "../images/Characters/Eve_App.png";
 import Samson from "../images/Characters/Samson_App.png";
 import Stigmata from "../images/Items/Stigmata_Icon.png"
 import Pentagram from "../images/Items/Pentagram_Icon.png"
+import Damage from "../images/Attributes/Damage.png"
+import Health from "../images/Attributes/Health.png"
+import Luck from "../images/Attributes/Luck.png"
+import Range from "../images/Attributes/Range.png"
+import Shot_Speed from "../images/Attributes/Shot_Speed.png"
+import Speed from "../images/Attributes/Speed.png"
+import Tears from "../images/Attributes/Tears.png"
+
 import "./characterscreen.css";
 
 export default function CharacterScreen() {
@@ -87,8 +95,6 @@ export default function CharacterScreen() {
     return 16 - 6 * Math.sqrt(t * 1.3 + 1);
   }
 
-  // Base Damage (before Modifier)
-  let charBaseDamage = character.baseDamage
 
   function effectiveDamage(baseDamage, totalDamageUp, flatDamageUp) {
    let phaseOne=Math.sqrt(totalDamageUp * 1.2 + 1 + flatDamageUp).toFixed(2)
@@ -166,16 +172,18 @@ export default function CharacterScreen() {
         <img src={Pentagram} alt="Stigmata-Item"className="item-logo" onClick={handleNewItem}/>
         
         <h1>You have selected {character.name}</h1>
+        <div id="stat-list">
         <div>HP: {character.redHealth}</div>
         <div>
-          Damage: {effectiveDamage(charBaseDamage, totalDmgUp, flatDmgUp).toFixed(2)}
+          Damage: <img src={Damage}/> {effectiveDamage(character.baseDamage, totalDmgUp, flatDmgUp).toFixed(2)}
         </div>
-        <div>Tear Delay: {tearDelay(character.tears)}</div>
-        <div>Shot Speed: {character.shotSpeed}</div>
-        <div>Range: {character.range}</div>
-        <div>Speed: {character.speed}</div>
-        <div>Luck: {character.luck}</div>
-        <div>Special Attributes: </div>
+        <div>Tear Delay: <img src={Tears}/>{tearDelay(character.tears)}</div>
+        <div>Shot Speed: <img src={Shot_Speed}/> {character.shotSpeed}</div>
+        <div>Range: <img src={Range}/> {character.range}</div>
+        <div>Speed: <img src={Speed}/> {character.speed}</div>
+        <div>Luck: <img src={Luck}/> {character.luck}</div>
+        <div>Special Attributes:</div>
+        </div>
         <hr></hr>
         <h3>Hidden stats</h3>
         <div>
@@ -183,10 +191,15 @@ export default function CharacterScreen() {
           {damageModifier})
         </div>
         <div>Actual Tears: +{character.tears}</div>
-        <div>Tear Height: I actually don't know what this one is</div>
+        {/* <div>Tear Height: I actually don't know what this one is</div> */}
 
         {/* <button>click me to increase dmg mult</button> */}
       </div>
+      {/* <div id="bg-buttons">
+      <button>Basement</button>
+      <button>Caves</button>
+      <button>Depths</button>
+      </div> */}
     </div>
   );
 }

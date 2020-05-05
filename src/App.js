@@ -10,6 +10,7 @@ function App() {
       <div className="stats" >
       <CharacterScreen />
       </div>
+  
     </div>
   );
 }

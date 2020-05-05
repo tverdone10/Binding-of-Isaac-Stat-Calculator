@@ -6,9 +6,29 @@ h3 {
   margin: 0;
 }
 
+ul{
+    text-align: center;
+    list-style-position: inside;
+
+}
+
+#bg-buttons {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    padding-top: 5vmin;
+}
+
+#stat-list img{
+    height: 3vmin;
+
+}
+
 .statContainer {
 
   margin: 0 auto;
+  background-color: #503b36;
+  opacity: .95;
 
 }
 
