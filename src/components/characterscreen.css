@@ -12,6 +12,10 @@ h3 {
 
 }
 
+.item-logo {
+    height: 10vmin;
+}
+
 .selection-bar {
   width: 100;
   flex-direction: row;
