@@ -3,13 +3,13 @@ import axios from "axios";
 import CharacterSelect from "./dropdown/CharacterDropdown";
 import Isaac from "../images/Characters/Isaac_App.png";
 import Maggie from "../images/Characters/Magdalene_App.png";
-import Cain from '../images/Characters/Cain_App.png';
-import Judas from '../images/Characters/Judas_App.png';
-import BlueBaby from '../images/Characters/Blue_Baby_App.png';
-import Eve from '../images/Characters/Eve_App.png';
-import Samson from '../images/Characters/Samson_App.png';
-
-
+import Cain from "../images/Characters/Cain_App.png";
+import Judas from "../images/Characters/Judas_App.png";
+import BlueBaby from "../images/Characters/Blue_Baby_App.png";
+import Eve from "../images/Characters/Eve_App.png";
+import Samson from "../images/Characters/Samson_App.png";
+import Stigmata from "../images/Items/Stigmata_Icon.png"
+import Pentagram from "../images/Items/Pentagram_Icon.png"
 import "./characterscreen.css";
 
 export default function CharacterScreen() {
@@ -18,6 +18,14 @@ export default function CharacterScreen() {
   const [characterList, setCharacterList] = useState([]);
   // Base stats for the character you've selected
   const [character, setCharacter] = useState([]);
+  // The most recent item you've selected (defaults to Stigmata as a test right now.)
+  const [newestItem, setNewestItem] = useState({
+      name: "Pentagram",
+      modifier: 1,
+      baseDamage: 0
+  })
+  // An array of all your items you've collected
+  const [itemArray, setItemArray] = useState([])
   // To keep track of the total number of damage ups collected
   const [totalDmgUp, setTotalDmgUp] = useState(0);
   // Total of all dmg ups collected that are excluded from the above (ex. curved horn, ipecac)
@@ -25,6 +33,7 @@ export default function CharacterScreen() {
   // Error, whatever
   const [error, setError] = useState("");
 
+  let isAac = {}
   // API call on page render. Just puts everything in the Character List
   useEffect(() => {
     axios
@@ -32,6 +41,7 @@ export default function CharacterScreen() {
       .then((res) => {
         console.log(res.data);
         setCharacterList(res.data);
+        
       })
       .catch((err) => {
         setError(err.message);
@@ -44,6 +54,7 @@ export default function CharacterScreen() {
 
   function justPickIsaac() {
     setCharacter(characterList[0]);
+   
   }
 
   function justPickMagdalene() {
@@ -65,11 +76,10 @@ export default function CharacterScreen() {
   function justPickEve() {
     setCharacter(characterList[5]);
   }
-  
+
   function justPickSamson() {
     setCharacter(characterList[6]);
   }
-
 
   //Stat getter functions
 
@@ -77,87 +87,106 @@ export default function CharacterScreen() {
     return 16 - 6 * Math.sqrt(t * 1.3 + 1);
   }
 
+  // Base Damage (before Modifier)
+  let charBaseDamage = character.baseDamage
+
   function effectiveDamage(baseDamage, totalDamageUp, flatDamageUp) {
-    return baseDamage * Math.sqrt(totalDamageUp * 1.2 + 1 + flatDamageUp);
+   let phaseOne=Math.sqrt(totalDamageUp * 1.2 + 1 + flatDamageUp).toFixed(2)
+   console.log(phaseOne + " phase1")
+   console.log(baseDamage + " baseDmg before")
+    let phaseTwo = baseDamage * phaseOne
+  console.log(baseDamage + " baseDmg after")
+
+   return phaseTwo
   }
 
 
-
-
-
-  const charBaseDamage = character.baseDamage * character.damageModifier;
   // console.log(character.baseDamage)
   // console.log(character.damageModifier)
   // console.log(totalDmgUp)
   // console.log(flatDmgUp)
 
-  const modifier = character.damageModifier;
-  console.log(modifier);
 
-  function multiplierAdder(t) {
-    return t + 1;
+  // Update state this way. Need to have a function like this for every available stat
+  // Need to attach 
+
+  function handleNewItem() {
+    setCharacter({
+        ...character, 
+        damageModifier: damageModifier + newestItem.modifier,
+        baseDamage: baseDamage + newestItem.baseDamage
+    })
+    setTotalDmgUp(totalDmgUp + 1)
+    setFlatDmgUp(flatDmgUp)
+    setItemArray(...itemArray, newestItem.name)
   }
 
-  function handleChange(e) {
-    if ((e.target.value = "Isaac")) {
-      setCharacter(characterList[0]);
-    } else {
-      console.log("w");
-    }
-  }
 
-  console.log(character);
+  let {baseDamage, damageModifier} = {...character}
+  console.log(damageModifier)
+  console.log(character)
 
-function clicked(){
-    console.log('button clicked')
-}
 
   // HTML JSX whatever here
 
   return (
-<div>
+    <div>
       <div className="selection-bar">
         <div className="selector">
-
           {" "}
-        <img className="choose" src={Isaac} onClick={justPickIsaac} /> 
-          <img  className="choose" src={Maggie} value={1} onClick={justPickMagdalene} />
-          <img className="choose" src={Cain} id={2} onClick={justPickCain} />
-            <img className="choose" src={Judas} id={3} onClick={justPickJudas}/> 
-          <img className="choose" src={BlueBaby} value={4} onClick={justPickBaby} />
-          <img className="choose" src={Eve} value={5} onClick={justPickEve} />
-          <img className="choose" src={Samson} value={6}onClick={justPickSamson} />
+          <img className="choose" src={Isaac} alt="Isaac" onClick={justPickIsaac} />
+          <img
+            className="choose"
+            src={Maggie}
+            alt="Maggie"
+            onClick={justPickMagdalene}
+          />
+          <img className="choose" src={Cain} alt="Cain" onClick={justPickCain} />
+          <img className="choose" src={Judas} alt="Judas" onClick={justPickJudas} />
+          <img
+            className="choose"
+            src={BlueBaby}
+           alt="???"
+            onClick={justPickBaby}
+          />
+          <img className="choose" src={Eve} alt="Eve" onClick={justPickEve} />
+          <img
+            className="choose"
+            src={Samson}
+            alt="Samson"
+            onClick={justPickSamson}
+          />
         </div>
       </div>
 
-    <div className="statContainer">
-    <p>items pools go here</p>
-      <h1>You have selected {character.name}</h1>
-      <div>HP: {character.redHealth}</div>
-      <div>
-        Damage: {effectiveDamage(charBaseDamage, totalDmgUp, flatDmgUp)}
+      <div className="statContainer">
+     <p>items collected: {itemArray}</p>
+
+        {/* ITEM PLACEHOLDER HERE */}
+        <img src={Pentagram} alt="Stigmata-Item"className="item-logo" onClick={handleNewItem}/>
+        
+        <h1>You have selected {character.name}</h1>
+        <div>HP: {character.redHealth}</div>
+        <div>
+          Damage: {effectiveDamage(charBaseDamage, totalDmgUp, flatDmgUp).toFixed(2)}
+        </div>
+        <div>Tear Delay: {tearDelay(character.tears)}</div>
+        <div>Shot Speed: {character.shotSpeed}</div>
+        <div>Range: {character.range}</div>
+        <div>Speed: {character.speed}</div>
+        <div>Luck: {character.luck}</div>
+        <div>Special Attributes: </div>
+        <hr></hr>
+        <h3>Hidden stats</h3>
+        <div>
+          Damage(*Damage Multiplier): {character.baseDamage}(*
+          {damageModifier})
+        </div>
+        <div>Actual Tears: +{character.tears}</div>
+        <div>Tear Height: I actually don't know what this one is</div>
+
+        {/* <button>click me to increase dmg mult</button> */}
       </div>
-      <div>Tear Delay: {tearDelay(character.tears)}</div>
-      <div>Shot Speed: {character.shotSpeed}</div>
-      <div>Range: {character.range}</div>
-      <div>Speed: {character.speed}</div>
-      <div>Luck: {character.luck}</div>
-
-      <hr></hr>
-      <h3>Hidden stats</h3>
-
-      {/* <h1>test modifier: {multiplierAdder(modifier)}</h1>
-      <button>click me</button> */}
-
-      <div>
-        Damage(*Damage Multiplier): {character.baseDamage}(*
-        {character.damageModifier})
-      </div>
-      <div>Actual Tears: +{character.tears}</div>
-      <div>Tear Height: I actually don't know what this one is</div>
-
-      {/* <button>click me to increase dmg mult</button> */}
-    </div>
     </div>
   );
 }
