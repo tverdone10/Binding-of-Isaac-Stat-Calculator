@@ -12,6 +12,11 @@ ul{
 
 }
 
+button {
+    border: none;
+    text-decoration: none;
+}
+
 #bg-buttons {
     display: flex;
     position: relative;

@@ -24,24 +24,31 @@ export default function CharacterScreen() {
   // Container variable for every character so I can pull them all at once and not
   // worry about it later
   const [characterList, setCharacterList] = useState([]);
+
   // Base stats for the character you've selected
   const [character, setCharacter] = useState([]);
+
   // The most recent item you've selected (defaults to Stigmata as a test right now.)
   const [newestItem, setNewestItem] = useState({
       name: "Pentagram",
       modifier: 1,
       baseDamage: 0
   })
+
   // An array of all your items you've collected
   const [itemArray, setItemArray] = useState([])
+  console.log(itemArray)
+
   // To keep track of the total number of damage ups collected
   const [totalDmgUp, setTotalDmgUp] = useState(0);
+
   // Total of all dmg ups collected that are excluded from the above (ex. curved horn, ipecac)
   const [flatDmgUp, setFlatDmgUp] = useState(0);
+
   // Error, whatever
   const [error, setError] = useState("");
 
-  let isAac = {}
+
   // API call on page render. Just puts everything in the Character List
   useEffect(() => {
     axios
@@ -58,36 +65,12 @@ export default function CharacterScreen() {
 
   console.log(characterList);
 
-  //Character Select functions
+  //Character Select function
 
-  function justPickIsaac() {
-    setCharacter(characterList[0]);
-   
+  function characterSelector(i) {
+    setCharacter(characterList[i])
   }
 
-  function justPickMagdalene() {
-    setCharacter(characterList[1]);
-  }
-
-  function justPickCain() {
-    setCharacter(characterList[2]);
-  }
-
-  function justPickJudas() {
-    setCharacter(characterList[3]);
-  }
-
-  function justPickBaby() {
-    setCharacter(characterList[4]);
-  }
-
-  function justPickEve() {
-    setCharacter(characterList[5]);
-  }
-
-  function justPickSamson() {
-    setCharacter(characterList[6]);
-  }
 
   //Stat getter functions
 
@@ -98,19 +81,12 @@ export default function CharacterScreen() {
 
   function effectiveDamage(baseDamage, totalDamageUp, flatDamageUp) {
    let phaseOne=Math.sqrt(totalDamageUp * 1.2 + 1 + flatDamageUp).toFixed(2)
-   console.log(phaseOne + " phase1")
-   console.log(baseDamage + " baseDmg before")
     let phaseTwo = baseDamage * phaseOne
-  console.log(baseDamage + " baseDmg after")
 
    return phaseTwo
   }
 
 
-  // console.log(character.baseDamage)
-  // console.log(character.damageModifier)
-  // console.log(totalDmgUp)
-  // console.log(flatDmgUp)
 
 
   // Update state this way. Need to have a function like this for every available stat
@@ -124,7 +100,9 @@ export default function CharacterScreen() {
     })
     setTotalDmgUp(totalDmgUp + 1)
     setFlatDmgUp(flatDmgUp)
-    setItemArray(...itemArray, newestItem.name)
+    console.log(itemArray)
+    setItemArray([...itemArray, newestItem.name])
+    console.log(itemArray)
   }
 
 
@@ -132,7 +110,7 @@ export default function CharacterScreen() {
   console.log(damageModifier)
   console.log(character)
 
-
+  const isaac = 0
   // HTML JSX whatever here
 
   return (
@@ -140,36 +118,36 @@ export default function CharacterScreen() {
       <div className="selection-bar">
         <div className="selector">
           {" "}
-          <img className="choose" src={Isaac} alt="Isaac" onClick={justPickIsaac} />
+        <img className="choose" src={Isaac} alt="Isaac" onClick={() => characterSelector(0)}/>
           <img
             className="choose"
             src={Maggie}
             alt="Maggie"
-            onClick={justPickMagdalene}
+            onClick={() => characterSelector(1)}
           />
-          <img className="choose" src={Cain} alt="Cain" onClick={justPickCain} />
-          <img className="choose" src={Judas} alt="Judas" onClick={justPickJudas} />
+          <img className="choose" src={Cain} alt="Cain" onClick={() => characterSelector(2)} />
+          <img className="choose" src={Judas} alt="Judas" onClick={() => characterSelector(3)} />
           <img
             className="choose"
             src={BlueBaby}
            alt="???"
-            onClick={justPickBaby}
+            onClick={() => characterSelector(4)}
           />
-          <img className="choose" src={Eve} alt="Eve" onClick={justPickEve} />
+          <img className="choose" src={Eve} alt="Eve" onClick={() => characterSelector(5)} />
           <img
             className="choose"
             src={Samson}
             alt="Samson"
-            onClick={justPickSamson}
+            onClick={() => characterSelector(6)}
           />
         </div>
       </div>
 
       <div className="statContainer">
-     <p>items collected: {itemArray}</p>
+     <p>items collected: {itemArray.join(", ")} &nbsp; </p>
 
         {/* ITEM PLACEHOLDER HERE */}
-        <img src={Pentagram} alt="Stigmata-Item"className="item-logo" onClick={handleNewItem}/>
+        <img src={Pentagram} alt="Pentagram-Item"className="item-logo" onClick={handleNewItem}/>
         
         <h1>You have selected {character.name}</h1>
         <div id="stat-list">
