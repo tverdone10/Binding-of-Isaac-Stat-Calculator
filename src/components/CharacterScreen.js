@@ -49,6 +49,9 @@ export default function CharacterScreen() {
   const [error, setError] = useState("");
 
 
+
+
+
   // API call on page render. Just puts everything in the Character List
   useEffect(() => {
     axios
@@ -69,13 +72,21 @@ export default function CharacterScreen() {
 
   function characterSelector(i) {
     setCharacter(characterList[i])
+    
   }
 
 
   //Stat getter functions
 
   function tearDelay(t) {
+    if (t >= 0){
     return 16 - 6 * Math.sqrt(t * 1.3 + 1);
+    } else if (t < 0 && t>-0.77) {
+      return 16 - 6 * Math.sqrt(t * 1.3 + 1 - 6 * t);
+    }
+    else if (t < 0.77){
+     return 16 - 6 * t
+    }
   }
 
 
@@ -110,7 +121,7 @@ export default function CharacterScreen() {
   console.log(damageModifier)
   console.log(character)
 
-  const isaac = 0
+
   // HTML JSX whatever here
 
   return (
@@ -142,42 +153,45 @@ export default function CharacterScreen() {
           />
         </div>
       </div>
+{
+  (!character.name) 
+  ? <h1>Choose your character</h1>
+  :
+  <div className="statContainer">
+  <p>items collected: {itemArray.join(", ")} &nbsp; </p>
 
-      <div className="statContainer">
-     <p>items collected: {itemArray.join(", ")} &nbsp; </p>
+     {/* ITEM PLACEHOLDER HERE */}
+     <img src={Pentagram} alt="Pentagram-Item"className="item-logo" onClick={handleNewItem}/>
+     
+     <h1>You have selected {character.name}</h1>
+     <div id="stat-list">
+     <div>HP: {character.redHealth}</div>
+     <div>
+       Damage: <img src={Damage}/> {effectiveDamage(character.baseDamage, totalDmgUp, flatDmgUp).toFixed(2)}
+     </div>
+     <div>Tear Delay: <img src={Tears}/>{tearDelay(character.tears)}</div>
+     <div>Shot Speed: <img src={Shot_Speed}/> {character.shotSpeed}</div>
+     <div>Range: <img src={Range}/> {character.range}</div>
+     <div>Speed: <img src={Speed}/> {character.speed}</div>
+     <div>Luck: <img src={Luck}/> {character.luck}</div>
+     <div>Special Attributes:</div>
+     </div>
+     <hr></hr>
+     <h3>Hidden stats</h3>
+     <div>
+       Damage(*Damage Multiplier): {character.baseDamage}(*
+       {damageModifier})
+     </div>
+     <div>Actual Tears: +{character.tears}</div>
+     {/* <div>Tear Height: I actually don't know what this one is</div> */}
 
-        {/* ITEM PLACEHOLDER HERE */}
-        <img src={Pentagram} alt="Pentagram-Item"className="item-logo" onClick={handleNewItem}/>
-        
-        <h1>You have selected {character.name}</h1>
-        <div id="stat-list">
-        <div>HP: {character.redHealth}</div>
-        <div>
-          Damage: <img src={Damage}/> {effectiveDamage(character.baseDamage, totalDmgUp, flatDmgUp).toFixed(2)}
-        </div>
-        <div>Tear Delay: <img src={Tears}/>{tearDelay(character.tears)}</div>
-        <div>Shot Speed: <img src={Shot_Speed}/> {character.shotSpeed}</div>
-        <div>Range: <img src={Range}/> {character.range}</div>
-        <div>Speed: <img src={Speed}/> {character.speed}</div>
-        <div>Luck: <img src={Luck}/> {character.luck}</div>
-        <div>Special Attributes:</div>
-        </div>
-        <hr></hr>
-        <h3>Hidden stats</h3>
-        <div>
-          Damage(*Damage Multiplier): {character.baseDamage}(*
-          {damageModifier})
-        </div>
-        <div>Actual Tears: +{character.tears}</div>
-        {/* <div>Tear Height: I actually don't know what this one is</div> */}
+     {/* <button>click me to increase dmg mult</button> */}
+   </div>
 
-        {/* <button>click me to increase dmg mult</button> */}
-      </div>
-      {/* <div id="bg-buttons">
-      <button>Basement</button>
-      <button>Caves</button>
-      <button>Depths</button>
-      </div> */}
-    </div>
+}
+ </div>
+     
+
   );
+    
 }
