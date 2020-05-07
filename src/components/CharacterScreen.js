@@ -21,9 +21,9 @@ import Tears from "../images/Attributes/Tears.png"
 import "./characterscreen.css";
 
 export default function CharacterScreen() {
-  // Container variable for every character so I can pull them all at once and not
-  // worry about it later
-  const [characterList, setCharacterList] = useState([]);
+ 
+  // Container variable for every character so I can pull them all at once and not worry about it later
+  const [characterList, setCharacterList] = useState([{}]);
 
   // Base stats for the character you've selected
   const [character, setCharacter] = useState([]);
@@ -35,6 +35,9 @@ export default function CharacterScreen() {
       baseDamage: 0
   })
 
+  // Container variable for for all the items so I can pull them all at once and not worry about it later
+  const [itemCompendium, setItemCompendium] = useState([]);
+  
   // An array of all your items you've collected
   const [itemArray, setItemArray] = useState([])
   console.log(itemArray)
@@ -44,7 +47,7 @@ export default function CharacterScreen() {
 
   // Total of all dmg ups collected that are excluded from the above (ex. curved horn, ipecac)
   const [flatDmgUp, setFlatDmgUp] = useState(0);
-
+  
   // Error, whatever
   const [error, setError] = useState("");
 
@@ -52,30 +55,56 @@ export default function CharacterScreen() {
 
 
 
-  // API call on page render. Just puts everything in the Character List
+
+
+  // API call on page render. Just puts everything in the Character List and Item Compendium
+
+  // CHARACTERS AND ITEMS TOGETHER
   useEffect(() => {
     axios
       .get("http://localhost:5000/characters/")
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data + "Character List Response");
         setCharacterList(res.data);
         
+      })
+      axios
+      .get("http://localhost:5000/items/")
+      .then((res) => {
+        console.log(res.data + "Items list response")
+        setItemCompendium(res.data)
+        console.log(itemCompendium + "total item list compendium")
       })
       .catch((err) => {
         setError(err.message);
       });
   }, []);
 
-  console.log(characterList);
+  // CHARACTERS ALONE
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/characters/")
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setCharacterList(res.data);
+        
+  //     })
+  //     .catch((err) => {
+  //       setError(err.message);
+  //     });
+  // }, []);
+
+  // console.log(characterList + "character list after function");
+  // console.log(itemCompendium + "item compendium after function")
 
   //Character Select function
 
   function characterSelector(i) {
-    setCharacter(characterList[i])
-    
+    setCharacter(characterList[i])   
   }
 
-
+characterList.forEach(character => console.log(character))
+itemCompendium.forEach(item => console.log(item))
   //Stat getter functions
 
   function tearDelay(t) {
@@ -105,7 +134,11 @@ export default function CharacterScreen() {
 
   function handleNewItem() {
     setCharacter({
-        ...character, 
+
+      // do this for every stat. need to make if else though.
+      // if !whateverStatMod, return, else return whateverStatMod + newestItem.whateverStatMod
+    
+      ...character, 
         damageModifier: damageModifier + newestItem.modifier,
         baseDamage: baseDamage + newestItem.baseDamage
     })
