@@ -10,64 +10,66 @@ h1 {
 
 }
 
-h3 {
-  margin: 0;
-}
-
-ul{
-    text-align: center;
-    list-style-position: inside;
-
-}
-
-button {
-    border: none;
-    text-decoration: none;
-}
-
-#bg-buttons {
-    display: flex;
-    position: relative;
-    justify-content: space-between;
-    padding-top: 5vmin;
-}
-
-#stat-list img{
-    height: 3vmin;
-
-}
-
-.statContainer {
-  font-family: myFirstfont;
-  margin: 0 auto;
-  /* background-image: url('../images/Full_Death_Note.png');
-  background-repeat: no-repeat;
-  background-size: cover; */
-  opacity: .95;
-
-}
 
 .item-logo {
-    height: 10vmin;
+  height: 10vmin;
+}
+
+
+#stat-list img{
+    height: 3vmin;    
+}
+
+.character-query {
+
+  align-items: center; 
+}
+
+/* This is for every row on the page (Header, Content, Footer) */
+
+.row {
+  /* position: absolute; */
+  display: flex;
+  /* flex-direction: row;
+  flex-basis: 100%;
+  flex: 1; */
+  overflow: hidden;
+  margin: 1em 0;
+  color: #fff;
+  /* border: 1px solid #333; */
+  align-items: center;
+  width: 100%;
+
+}
+
+/* This is the header row for the character select and etc */
+
+.row.header {
+ top: 0;
+
 }
 
 .selection-bar {
-  width: 100;
-  flex-direction: row;
+  width: 95;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  z-index: 999
 
 }
 
 .selector {
   margin: 0 auto;
   display: flex;
+  max-width: 50%;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   border-bottom: 0;
 }
 
 .choose {
   margin-top: 10px;
   height: 10vmin;
+  min-height: 5vmin;
   transition: height 1s;
   z-index: 99;
   justify-content: space-evenly;
@@ -78,3 +80,81 @@ button {
   height: 12vmin;
   border-bottom: 0;
 }
+
+
+/* This is the main body of the page */
+
+.statContainer {
+
+  align-items: center; 
+  font-family: myFirstfont;
+  margin: 0 auto;
+  opacity: .95;
+}
+
+
+/* This is for the two columns in the center of the page */
+
+.column {
+  position: relative;
+  font-family: myFirstfont;
+  flex: 50%;
+  padding-top: 0;
+  width: 80%;
+  flex-direction: column;
+  /* flex-basis: 100%; */
+  /* flex: 1; */
+  align-items: center;
+  text-align: center;
+  max-height: 50vh;
+  min-height: 50vh;
+}
+
+/* This is the container on the left which is supposed to hold the items you've collected */
+
+#item-list {
+  padding: 1em;
+  /* background-image: url('../images/Full_Death_Note2.png'); */
+  text-align: center;
+  align-items: left;
+  height: 100%;
+}
+
+#item-list.column {
+  height: 100%;
+  text-align: center;
+
+}
+
+.item-containers {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+/* This is the list of your stats on the right  */
+
+#stat-list {
+  padding: 1em;
+  /* background-color: #5cb85c; */
+  text-align: center; 
+  align-items: right;
+}
+
+
+/* This is allegedly my footer */
+
+.row.footer {
+  position: fixed;
+  bottom: 0;
+  background-image: url('../images/Boss_Chub_ingame.png');
+  background-size: contain;
+  margin: 0;
+  height: 50px;
+}
+
+
+
+
