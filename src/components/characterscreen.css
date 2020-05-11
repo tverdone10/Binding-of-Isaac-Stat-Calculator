@@ -1,60 +1,47 @@
 @font-face {
   font-family: myFirstFont;
-  src: url('../fonts/upheavtt.ttf')
+  src: url("../fonts/upheavtt.ttf");
 }
-
 
 h1 {
   margin: 0;
   font-family: myFirstfont;
-
 }
-
 
 .item-logo {
   height: 10vmin;
 }
 
-
-#stat-list img{
-    height: 3vmin;    
+#stat-list img {
+  height: 3vmin;
 }
 
 .character-query {
-
-  align-items: center; 
+  align-items: center;
 }
 
 /* This is for every row on the page (Header, Content, Footer) */
 
 .row {
-  /* position: absolute; */
   display: flex;
-  /* flex-direction: row;
-  flex-basis: 100%;
-  flex: 1; */
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: 1em 0;
   color: #fff;
-  /* border: 1px solid #333; */
   align-items: center;
   width: 100%;
-
 }
 
 /* This is the header row for the character select and etc */
 
 .row.header {
- top: 0;
-
+  top: 0;
 }
 
 .selection-bar {
   width: 95;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  z-index: 999
-
+  z-index: 999;
 }
 
 .selector {
@@ -81,17 +68,14 @@ h1 {
   border-bottom: 0;
 }
 
-
 /* This is the main body of the page */
 
 .statContainer {
-
-  align-items: center; 
+  align-items: center;
   font-family: myFirstfont;
   margin: 0 auto;
-  opacity: .95;
+  opacity: 0.95;
 }
-
 
 /* This is for the two columns in the center of the page */
 
@@ -102,8 +86,7 @@ h1 {
   padding-top: 0;
   width: 80%;
   flex-direction: column;
-  /* flex-basis: 100%; */
-  /* flex: 1; */
+  flex-wrap: wrap;
   align-items: center;
   text-align: center;
   max-height: 50vh;
@@ -114,16 +97,14 @@ h1 {
 
 #item-list {
   padding: 1em;
-  /* background-image: url('../images/Full_Death_Note2.png'); */
   text-align: center;
-  align-items: left;
+
   height: 100%;
 }
 
 #item-list.column {
   height: 100%;
   text-align: center;
-
 }
 
 .item-containers {
@@ -139,22 +120,61 @@ h1 {
 #stat-list {
   padding: 1em;
   /* background-color: #5cb85c; */
-  text-align: center; 
-  align-items: right;
+  text-align: center;
 }
-
 
 /* This is allegedly my footer */
 
 .row.footer {
   position: fixed;
   bottom: 0;
-  background-image: url('../images/Boss_Chub_ingame.png');
+  background-image: url("../images/Boss_Chub_ingame.png");
   background-size: contain;
   margin: 0;
   height: 50px;
 }
 
+/* generic mobile styles  */
+@media only screen and (max-width: 812px) {
+  .selector {
+    max-width: 95%;
+    justify-content: space-between;
+  }
+  .choose {
+    height: 20vmin;
+    justify-content: space-evenly;
+  }
+  .choose:hover {
+    height: 20vmin;
+  }
+  .column {
+    max-height: 20vh;
+    min-height: 20vh;
+    flex: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+  }
 
+  .row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 1em 0;
+    color: #fff;
+    align-items: center;
+    width: 100%;
+  }
 
+  #item-list.column {
+    text-align: center;
+  }
 
+  #stat-list.column {
+    text-align: center;
+  }
+  /* #item-list{
+  align-items: flex-start;
+} */
+}

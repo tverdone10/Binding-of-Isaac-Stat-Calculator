@@ -1,11 +1,15 @@
 html{
-  /* overflow: hidden;
-  max-height: 100vh; */
 height: 100%;
 max-width: 100%;
 background-image: url("./images/basement1.png");
 background-size: cover;
 background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 812px){
+  html{
+  background-position: center ;
+}
 }
 
 body {
