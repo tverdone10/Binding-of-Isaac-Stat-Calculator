@@ -21,27 +21,32 @@ import Tears from "../images/Attributes/Tears.png"
 
 import "./characterscreen.css";
 
+// Container variables for stats, stat modifiers, and items you've acquired
+  // Most recent item which we're applying to your character
+  let newestItem;
+  console.log(newestItem)
+  //List of everything
+  let itemArray = []
+  console.log(itemArray)
+  //Amount of Total Damage Up items you've collected (affects damage)
+  let totalDmgUp = 0
+  console.log(totalDmgUp)
+  //Amount of Flat Damage Up items you've selected (affects damage)
+  let flatDmgUp = 0
+  console.log(flatDmgUp)
+
+// Deactivates character selection after you pick your guy
+
+  let buttonNull;
+
 export default function CharacterScreen() {
-  
-  // The most recent item you've selected (defaults to Stigmata as a test right now.)
-  const [newestItem, setNewestItem] = useState({})
   
   // Container variable for for all the items so I can pull them all at once and not worry about it later
   const [itemCompendium, setItemCompendium] = useState([]);
   
-  // An array of all your items you've collected
-  const [itemArray, setItemArray] = useState(["None!"]);
-  console.log(itemArray)
-
   // Base stats for the character you've selected
   const [character, setCharacter] = useState([]);
   
-  
-  // To keep track of the total number of damage ups collected
-  const [totalDmgUp, setTotalDmgUp] = useState(0);
-  
-  // Total of all dmg ups collected that are excluded from the above (ex. curved horn, ipecac)
-  const [flatDmgUp, setFlatDmgUp] = useState(0);
 
   // Container variable for every character so I can pull them all at once and not worry about it later
   const [characterList, setCharacterList] = useState([{}]);
@@ -64,16 +69,16 @@ export default function CharacterScreen() {
     axios
       .get("http://localhost:5000/characters/")
       .then((res) => {
-        console.log(res.data + "Character List Response");
+        // console.log(res.data + "Character List Response");
         setCharacterList(res.data);
         
       })
       axios
       .get("http://localhost:5000/items/")
       .then((res) => {
-        console.log(res.data + "Items list response")
+        // console.log(res.data + "Items list response")
         setItemCompendium(res.data)
-        console.log(itemCompendium + "total item list compendium")
+        // console.log(itemCompendium + "total item list compendium")
       })
       .catch((err) => {
         setError(err.message);
@@ -83,25 +88,24 @@ export default function CharacterScreen() {
 
 
 
-
 // ------------------------------------------------------------------
 
 
   // Checking out all the characters here and items here.
-  
+  // All good
+
   characterList.forEach(character => console.log(character))
   itemCompendium.forEach(item => console.log(item))
 
-  // Character Select function
+
+
+  // Character Select function (Deactivates selections after you pick)
 
   function characterSelector(i) {
     setCharacter(characterList[i])   
     console.log(character)
+    buttonNull = {pointerEvents: 'none'}
   }
-
-
-
-
 
 
 
@@ -110,13 +114,12 @@ export default function CharacterScreen() {
 
   //FIRST update the newest item here.
   function addNewItem(i) {
-    setNewestItem(itemCompendium[i])
-
+    newestItem = itemCompendium[i]
     //THEN do all your stat calculations here
     handleNewItem()
   }
 
-
+let newItem = newestItem
 
   //Stat calculations go here
   function handleNewItem() {
@@ -126,22 +129,29 @@ export default function CharacterScreen() {
       // do this for every stat. need to make if else though.
       // if !whateverStatMod, return, else return whateverStatMod + newestItem.whateverStatMod    
       ...character, 
-        damageModifier: damageModifier + newestItem.damageModifierMod
+
+        damageModifier: damageModifier + newestItem.damageModifierMod,
         // baseDamage: baseDamage + newestItem.baseDamage
     })
-    setTotalDmgUp(totalDmgUp + 1)
-    setFlatDmgUp(flatDmgUp)
-    // console.log(itemArray)
-    updateItems()
-  }
 
-  function updateItems() {
-    setItemArray( itemArray => [...itemArray, newestItem.itemName])
+    itemArray.push(newestItem.itemName)
     console.log(itemArray)
+
+    if (newestItem.totalDamageUpItem = true){
+      totalDmgUp++
+    } else {
+      return 
+    }
+
   }
 
-console.log(newestItem)
-console.log(character)
+
+  // function updateItems() {
+
+  // }
+
+// console.log(newestItem)
+// console.log(character)
   let {baseDamage, damageModifier} = {...character}
   // console.log(damageModifier)
   // console.log(character)
@@ -163,25 +173,31 @@ console.log(character)
 
   //DMG obviously
   function effectiveDamage(baseDamage, totalDamageUp, flatDamageUp) {
-   let phaseOne=Math.sqrt(totalDamageUp * 1.2 + 1 + flatDamageUp).toFixed(2)
+   let phaseOne=Math.sqrt(totalDamageUp * 1.2 + 1 + flatDamageUp)
     let phaseTwo = baseDamage * phaseOne
 
    return phaseTwo
   }
 
-  let actualDamage = effectiveDamage(character.baseDamage, totalDmgUp, flatDmgUp) * character.damageModifier
+  let actualDamage = effectiveDamage(character.baseDamage, totalDmgUp, flatDmgUp)
 
 // -----------------------------------------------------------------------
 
-  // HTML JSX whatever here
+console.log(newestItem)
+console.log(itemArray)
+console.log(flatDmgUp)
+console.log(totalDmgUp)
 
+// HTML JSX whatever here
+
+ 
 
   return (
     <div>
       <div className="row header selection-bar">
-        <div className="selector">
+        <div className="selector" style={buttonNull}>
           {" "}
-        <img className="choose" src={Isaac} alt="Isaac" onClick={() => characterSelector(0)}/>
+        <img className="choose" src={Isaac} alt="Isaac" onClick={() => characterSelector(0) }/>
           <img
             className="choose"
             src={Maggie}
@@ -253,7 +269,7 @@ console.log(character)
      <div>
        Damage(*Damage Multiplier): {character.baseDamage}(*
        {damageModifier})
-       {console.log(damageModifier)}
+       {/* {console.log(damageModifier)} */}
      </div>
      <div>Actual Tears: +{character.tears}</div>
      </div>
