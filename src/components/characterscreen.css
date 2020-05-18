@@ -20,6 +20,14 @@ h1 {
   align-items: center;
 }
 
+.react-select-container{
+  background-color: pink;
+}
+
+.react-select__menu-list{
+  background-color: pink;
+}
+
 /* This is for every row on the page (Header, Content, Footer) */
 
 .row {

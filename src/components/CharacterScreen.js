@@ -35,13 +35,7 @@ console.log(totalDmgUp);
 let flatDmgUp = 0;
 console.log(flatDmgUp);
 
-const items = [
-  {
-    id: 1,
-    value: "Pulp Fiction",
-  },
-  { id: 2, value: "wutaver" },
-];
+let char;
 
 // Deactivates character selection after you pick your guy
 
@@ -60,16 +54,22 @@ export default function CharacterScreen() {
   // Error, whatever
   const [error, setError] = useState("");
 
-  const options = [
-    { value: "Pentagram", label: "Chocolate" },
-    { value: "8 inch Nail", label: "Strawberry" },
-    { value: "Moms Knife", label: "whatever" },
-  ];
-
   // ---------------------------------------------------------------
 
   // API call on page render. Just puts everything in the Character List and Item Compendium
   // and attaches them to their respective container variables
+
+  function customTheme(theme) {
+    return {
+      ...theme,
+      colors:{
+        ...theme.colors, 
+        text: 'black',
+        primary25: 'orange',
+        primary:  'green'
+      }
+    }
+  }
 
   useEffect(() => {
     axios.get("http://localhost:5000/characters/").then((res) => {
@@ -96,8 +96,6 @@ export default function CharacterScreen() {
   characterList.forEach((character) => console.log(character));
   itemCompendium.forEach((item) => console.log(item));
 
-  itemCompendium.forEach((item) => console.log(item));
-
   // Character Select function (Deactivates selections after you pick)
 
   function characterSelector(i) {
@@ -110,37 +108,48 @@ export default function CharacterScreen() {
   function handleSelect(val) {
     newestItem = val;
     handleNewItem();
-    console.log(newestItem);
   }
 
   //Stat calculations go here
   function handleNewItem() {
-    console.log(newestItem);
-
+    //update DB and add values for everything (even if they're 0). Or just figure out how to do it right.
     setCharacter({
-      // do this for every stat. need to make if else though.
-      // if !whateverStatMod, return, else return whateverStatMod + newestItem.whateverStatMod
       ...character,
-
+      redHealth: redHealth + newestItem.redHealthMod,
+      blueHealth: blueHealth + newestItem.blueHealthMod,
+      blackHealth: blackHealth + newestItem.blackHealthMod,
+      baseDamage: baseDamage + newestItem.baseDamageMod,
       damageModifier: damageModifier + newestItem.damageModifierMod,
-      // baseDamage: baseDamage + newestItem.baseDamage
+      tears: tears + newestItem.tearsMod,
+      shotSpeed: shotSpeed + newestItem.shotSpeedMod,
+      range: range + newestItem.rangeMod,
+      speed: speed + newestItem.speedMod,
+      luck: luck + newestItem.luckMod,
     });
-
+    // baseDamage: baseDamage + newestItem.baseDamage
     itemArray.push(newestItem.itemName);
     console.log(itemArray);
+    console.log(newestItem.totalDamageUpItem);
 
-    if ((newestItem.totalDamageUpItem = true)) {
+    if (newestItem.totalDamageUpItem) {
       totalDmgUp++;
     } else {
-      return;
+      return totalDmgUp;
     }
   }
 
-  // console.log(newestItem)
-  // console.log(character)
-  let { baseDamage, damageModifier } = { ...character };
-  // console.log(damageModifier)
-  // console.log(character)
+  let {
+    redHealth,
+    blueHealth,
+    blackHealth,
+    baseDamage,
+    damageModifier,
+    tears,
+    shotSpeed,
+    range,
+    speed,
+    luck,
+  } = { ...character };
 
   //Stat getter functions
 
@@ -163,6 +172,10 @@ export default function CharacterScreen() {
     return phaseTwo;
   }
 
+  console.log(totalDmgUp + "TOTALDMG");
+  console.log(flatDmgUp + "FLATDMG");
+  console.log(newestItem + "NEW ITEM HERE");
+
   let actualDamage = effectiveDamage(
     character.baseDamage,
     totalDmgUp,
@@ -170,12 +183,6 @@ export default function CharacterScreen() {
   );
 
   // -----------------------------------------------------------------------
-
-  console.log(newestItem);
-  console.log(itemArray);
-  console.log(flatDmgUp);
-  console.log(totalDmgUp);
-
   // HTML JSX whatever here
 
   return (
@@ -235,16 +242,16 @@ export default function CharacterScreen() {
             <h1 className="character-query">
               You have selected {character.name}
             </h1>
-            {/* <Dropdown title="Select movie" items={items} multiSelect/> */}
-            <Select
-              placeholder="Select your items."
-              className="search-bar"
-              onChange={handleSelect}
-              getOptionLabel={(option) => `${option.itemName}`}
-              getOptionValue={(option) => `${option}`}
-              options={itemCompendium}
-            />
           </div>
+          <Select
+            placeholder="Select your items."
+            className="search-bar"
+            theme={customTheme}
+            onChange={handleSelect}
+            getOptionLabel={(option) => `${option.itemName}`}
+            getOptionValue={(option) => `${option}`}
+            options={itemCompendium}
+          />
           <div className="row content">
             {/* <ItemList className ="column" id="item-list"/> */}
 
