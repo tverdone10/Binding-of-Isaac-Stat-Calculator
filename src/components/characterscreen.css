@@ -1,11 +1,11 @@
 @font-face {
-  font-family: myFirstFont;
+  font-family: Upheavtt;
   src: url("../fonts/upheavtt.ttf");
 }
 
 h1 {
   margin: 0;
-  font-family: myFirstfont;
+  font-family: Upheavtt;
 }
 
 .item-logo {
@@ -18,7 +18,10 @@ h1 {
 
 .character-query {
   align-items: center;
+  color: white;
+  /* position: absolute; */
 }
+
 
 /* This is for every row on the page (Header, Content, Footer) */
 
@@ -36,6 +39,7 @@ h1 {
 .row.header {
   top: 0;
 }
+
 
 .selection-bar {
   width: 95;
@@ -70,9 +74,21 @@ h1 {
 
 /* This is the main body of the page */
 
+.search-bar {
+  width: 50%;
+margin: 0 auto;
+padding-top: 25px;
+
+}
+
+.css-1pahdxg-control {
+  box-shadow: none;
+}
+
+
 .statContainer {
   align-items: center;
-  font-family: myFirstfont;
+  font-family: Upheavtt;
   margin: 0 auto;
   opacity: 0.95;
 }
@@ -81,7 +97,7 @@ h1 {
 
 .column {
   position: relative;
-  font-family: myFirstfont;
+  font-family: Upheavtt;
   flex: 50%;
   padding-top: 0;
   width: 80%;
@@ -125,13 +141,15 @@ h1 {
 
 /* This is allegedly my footer */
 
-.row.footer {
-  position: fixed;
+.footer {
+  color: white;
+  position: absolute;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 100%;
   bottom: 0;
-  background-image: url("../images/Boss_Chub_ingame.png");
-  background-size: contain;
-  margin: 0;
-  height: 50px;
+  font-family: Upheavtt;
 }
 
 /* generic mobile styles  */
@@ -141,15 +159,15 @@ h1 {
     justify-content: space-between;
   }
   .choose {
-    height: 20vmin;
+    height: 15vmin;
     justify-content: space-evenly;
   }
   .choose:hover {
-    height: 20vmin;
+    height: 15vmin;
   }
   .column {
-    max-height: 20vh;
-    min-height: 20vh;
+    max-height: 15vh;
+    min-height: 15vh;
     flex: 100%;
     flex-direction: column;
     flex-wrap: wrap;
