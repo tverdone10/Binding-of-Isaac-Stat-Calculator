@@ -59,17 +59,6 @@ export default function CharacterScreen() {
   // API call on page render. Just puts everything in the Character List and Item Compendium
   // and attaches them to their respective container variables
 
-  function customTheme(theme) {
-    return {
-      ...theme,
-      colors:{
-        ...theme.colors, 
-        text: 'black',
-        primary25: 'orange',
-        primary:  'green'
-      }
-    }
-  }
 
   useEffect(() => {
     axios.get("http://localhost:5000/characters/").then((res) => {
@@ -246,7 +235,6 @@ export default function CharacterScreen() {
           <Select
             placeholder="Select your items."
             className="search-bar"
-            theme={customTheme}
             onChange={handleSelect}
             getOptionLabel={(option) => `${option.itemName}`}
             getOptionValue={(option) => `${option}`}
@@ -303,7 +291,7 @@ export default function CharacterScreen() {
             {/* <button>click me to increase dmg mult</button> */}
           </div>
           {/* <h1>Thanks for using this! New items added every day.</h1> */}
-          <p className="footer">want to help out? click here!</p>
+          <p className="footer">More items being added every week!</p>
         </div>
       )}
     </div>

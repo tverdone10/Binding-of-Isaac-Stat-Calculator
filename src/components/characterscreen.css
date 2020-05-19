@@ -18,15 +18,10 @@ h1 {
 
 .character-query {
   align-items: center;
+  color: white;
+  /* position: absolute; */
 }
 
-.react-select-container{
-  background-color: pink;
-}
-
-.react-select__menu-list{
-  background-color: pink;
-}
 
 /* This is for every row on the page (Header, Content, Footer) */
 
@@ -83,7 +78,13 @@ h1 {
   width: 50%;
 margin: 0 auto;
 padding-top: 25px;
+
 }
+
+.css-1pahdxg-control {
+  box-shadow: none;
+}
+
 
 .statContainer {
   align-items: center;
@@ -141,6 +142,7 @@ padding-top: 25px;
 /* This is allegedly my footer */
 
 .footer {
+  color: white;
   position: absolute;
   margin: 0 auto;
   display: flex;
