@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ItemList from "./itemlist/ItemList";
 import Isaac from "../images/Characters/Isaac_App.png";
 import Maggie from "../images/Characters/Magdalene_App.png";
 import Cain from "../images/Characters/Cain_App.png";
@@ -8,11 +7,7 @@ import Judas from "../images/Characters/Judas_App.png";
 import BlueBaby from "../images/Characters/Blue_Baby_App.png";
 import Eve from "../images/Characters/Eve_App.png";
 import Samson from "../images/Characters/Samson_App.png";
-import Stigmata from "../images/Items/Stigmata_Icon.png";
-import Pentagram from "../images/Items/Pentagram_Icon.png";
 import Damage from "../images/Attributes/Damage.png";
-import Nails from "../images/8_Inch_Nails.png";
-import Health from "../images/Attributes/Health.png";
 import Luck from "../images/Attributes/Luck.png";
 import Range from "../images/Attributes/Range.png";
 import Shot_Speed from "../images/Attributes/Shot_Speed.png";
