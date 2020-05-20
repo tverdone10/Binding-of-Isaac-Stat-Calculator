@@ -25,7 +25,7 @@ app.use('/characters', characterRouter);
 const itemRouter = require('./routes/items')
 app.use('/items', itemRouter)
 
-if (process.env.NDE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static('../build'))
 }
 
