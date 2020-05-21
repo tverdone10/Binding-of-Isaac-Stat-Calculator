@@ -14,6 +14,7 @@ import Shot_Speed from "../images/Attributes/Shot_Speed.png";
 import Speed from "../images/Attributes/Speed.png";
 import Tears from "../images/Attributes/Tears.png";
 import Select from "react-select";
+// import port from '../../backend/server'
 import "./characterscreen.css";
 
 // Container variables for stats, stat modifiers, and items you've acquired
@@ -56,12 +57,13 @@ export default function CharacterScreen() {
 
 
   useEffect(() => {
-    axios.get("http://localhost:5000/characters/").then((res) => {
+    axios.get("/characters").then((res) => {
       // console.log(res.data + "Character List Response");
       setCharacterList(res.data);
+      // console.log(port)
     });
     axios
-      .get("http://localhost:5000/items/")
+      .get("/items")
       .then((res) => {
         // console.log(res.data + "Items list response")
         setItemCompendium(res.data);
