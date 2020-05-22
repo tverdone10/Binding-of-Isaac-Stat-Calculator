@@ -57,13 +57,13 @@ export default function CharacterScreen() {
 
 
   useEffect(() => {
-    axios.get("characters").then((res) => {
+    axios.get("/characters").then((res) => {
       // console.log(res.data + "Character List Response");
       setCharacterList(res.data);
       // console.log(port)
     });
     axios
-      .get("items")
+      .get("/items")
       .then((res) => {
         // console.log(res.data + "Items list response")
         setItemCompendium(res.data);
