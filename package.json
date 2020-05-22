@@ -21,8 +21,6 @@
     "react-select": "^3.1.0"
   },
   "scripts": {
-    "build": "react-scripts build",
-    "install": "react-scripts install",
     "heroku-postbuild": "npm install && npm run build",
     "start": "cd backend && node server.js",
     "test": "react-scripts test",
